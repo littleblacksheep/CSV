@@ -22,6 +22,6 @@ Pre-trained models may be used within N-body frameworks. Take care to apply pre 
 
 For development we used Ubuntu 18.04 with anaconda (pytorch version 1.9 and CUDA version 10.2).
 
-In case you desire to generate data on your own, please visit https://github.com/christophmschaefer/miluphcuda. We provide our used material and parameter files in `SPH/miluphcuda/`.
+In case you desire to generate data on your own, please visit https://github.com/christophmschaefer/miluphcuda. We provide our used parameter file in `SPH/miluphcuda/parameter.h`.
 
 In case of questions please contact <winter@ml.jku.at> (Philip Winter).
