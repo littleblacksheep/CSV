@@ -6,15 +6,11 @@ Official code for the paper "Residual Neural Networks for the Prediction of Plan
 
 We provide a dataset that consists of 10164 Smooth Particle Hydrodynamics (SPH) simulations of pairwise planetary collisions. The data is available at https://phaidra.univie.ac.at/o:1206181.
 
-<p align="center">
 ![plot](./misc/github1.png)
-</p>
   
 We propose a weight-tied residual neural network for prediction of post-collision states. Our architecture incorporates an inductive bias to treat temporal dynamics consistently by evolving system states in an autoregressive manner.
 
-<p align="center">
 ![plot](./misc/github2.png)
-</p>
 
 ### Usage
 
