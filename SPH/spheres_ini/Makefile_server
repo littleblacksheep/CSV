@@ -1,0 +1,40 @@
+CC = gcc
+
+LOCAL_PYTHON_VERSION = 3.6
+
+OPT = -O3 -Wall -fopenmp
+#OPT = -O3 -Wall
+
+#CFLAGS = -I/home/burger/sw/libconfig-1.7/lib/
+#CFLAGS = `python$(LOCAL_PYTHON_VERSION)-config  --includes` # on philip-dell
+CFLAGS = `python$(LOCAL_PYTHON_VERSION)-config  --includes` -I/system/apps/biosoft/libconfig/include # on JKU servers
+#CFLAGS = -I/opt/bwhpc/common/devel/python/3.7.1/include/python3.7m/ -I${HOME}/local/include/
+
+#LDFLAGS = -lm -L/home/burger/sw/libconfig-1.7/lib/.libs/ -lconfig
+#LDFLAGS = -lm -lconfig `python$(LOCAL_PYTHON_VERSION)-config  --ldflags` -L/usr/local/lib/ # on philip-dell
+LDFLAGS = -lm -lconfig `python$(LOCAL_PYTHON_VERSION)-config  --ldflags` -L/system/apps/biosoft/libconfig/lib/ # on JKU servers
+#LDFLAGS = -lconfig -L/opt/bwhpc/common/devel/python/3.7.1/lib/ -L${HOME}/local/lib/ -lpython3.7m -ldl -lutil  -lpthread -lm -Xlinker -export-dynamic
+
+SOURCES = spheres_ini.c io.c geometry.c hydrostruct.c
+OBJECTS = $(SOURCES:.c=.o)
+HEADERS = $(SOURCES:.c=.h)
+
+
+# default target
+all: spheres_ini
+
+spheres_ini: $(OBJECTS) Makefile
+	@echo ""
+	@echo "Linking spheres_ini ..."
+	$(CC) $(OBJECTS) $(OPT) $(LDFLAGS) -o $@
+	@echo ""
+	@echo "spheres_ini built successfully."
+
+%.o: %.c $(HEADERS) Makefile
+	@echo "Compiling source file $< ..."
+	$(CC) -c $(OPT) $(CFLAGS) -o $@ $<
+
+clean:
+	@echo "Cleaning up ..."
+	@-rm -vf spheres_ini $(OBJECTS)
+	@-rm -vrf ./SEAGen/__pycache__

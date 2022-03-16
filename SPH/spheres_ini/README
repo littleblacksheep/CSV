@@ -1,0 +1,58 @@
+How to create (relaxed) initial conditions (and start a miluph/miluphcuda simulation run based on them):
+23/Feb/2020
+
+
+x for all possibilities a miluph/miluphcuda executable has to exist already
+x for miluphcuda runs (not for miluph) libconfig must be installed for reading the materialconfiguration file
+  IMPORTANT: To ensure correct functionality install the latest version:
+             1. Download the tar.gz archive from https://hyperrealm.github.io/libconfig
+             2. sudo ./configure
+             3. sudo make
+             4. sudo make install
+
+
+Possibility I (miluph/miluphcuda): run the initial conditions program manually:
+    1. compile the initial conditions program via the Makefile
+    2. create a new directory for your simulation
+    3. miluph/miluphcuda: copy your input parameter file (usually spheres_ini.input) to that directory
+       miluphcuda:        provide a material-configuration file (usually material.cfg) in that directory (the sml will be set automatically!, everything else is your job)
+    4. run the initial conditions program (e.g. spheres_ini) with appropriate command line arguments (see the help for details, e.g. ./spheres_ini -?)
+       (the output file (typically impact.0000) and the scenario file (only for miluph runs) should usually be placed in the simulation directory)
+    5. the initial conditions program generates an output file (typically impact.0000; this will then in turn be the input file for miluph/miluphcuda) and a scenario file (only for miluph runs)
+    6. finally start miluph/miluphcuda with the created output file (typically impact.0000) (and the created scenario file in case of miluph runs)
+
+
+Possibility II (only miluph, not yet including spherical shell setups): use the miluph start script for running both, the initial conditions program and miluph:
+    1. compile the initial conditions program via the Makefile
+    2. create a new directory for your simulation
+    3. copy your input parameter file (named spheres_ini.input) to that directory
+    4. set the correct paths and program-names of the initial conditions program and of miluph (at the beginning of the start script)
+    5. the miluph command line (options) can be changed in the corresponding line (MILUPHCOMMAND=...) of the start script
+    6. run the miluph start script with your desired command line arguments, see the help for details, e.g. ./start_spheres.sh -?
+
+
+Possibility III (STANDARD WAY, only miluphcuda, not yet including spherical shell setups): use the miluphcuda start script for running both, the initial conditions program and miluphcuda:
+    1. compile the initial conditions program via the Makefile
+    2. create a new directory for your simulation
+    3. copy your input parameter file (named spheres_ini.input) to that directory
+    4. copy your materialconfiguration file (usually material.cfg) to that directory - the sml will be set automatically, everything else is your job.
+    5. set the correct static paths and parameters at the beginning of the start script
+    6. run the miluphcuda start script from your simulation directory (!) without any arguments - the interactive dialogue will guide you through the process!
+
+
+If you want to do something more complicated, like
+    - using an initially spinning projectile/target
+    - reading radial profiles of projectile/target from files
+    - running miluph instead of miluphcuda
+    - etc.
+then take a look at './spheres_ini -?' and 'spheres_ini.h'.
+
+
+For more details on the relaxation procedure and the program see:
+
+C. Burger, T.I. Maindl & C.M. Schäfer (2018). Transfer, loss and physical processing of water in hit-and-run collisions of 
+planetary embryos. Celestial Mechanics and Dynamical Astronomy, 130:2. doi: 10.1007/s10569-017-9795-3.
+https://arxiv.org/abs/1710.03669
+
+Please cite this article when using our program.
+
