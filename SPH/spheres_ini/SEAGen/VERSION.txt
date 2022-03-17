@@ -1,4 +1,0 @@
-This version of SEAGen was cloned on 18/Feb/2020 from
-
-https://github.com/jkeger/seagen.git
-
